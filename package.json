@@ -1,0 +1,66 @@
+{
+  "name": "react-terminal-rendered-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir=build --extensions '.ts,.tsx'",
+    "start": "npm run build && node ./build/examples/index.js",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --ext ts,tsx,js,jsx src/ examples/",
+    "fixlint": "eslint --fix --ext ts,tsx,js,jsx src/ examples/",
+    "test": "npm run lint && npm run check-types"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-reconciler": "^0.20.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.8.17",
+    "@types/react-reconciler": "^0.18.0",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.13.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "1.16.4",
+    "typescript": "^3.4.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,jsx,ts,tsx}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs",
+      "@babel/proposal-class-properties",
+      "@babel/proposal-object-rest-spread"
+    ],
+    "presets": [
+      "@babel/preset-react",
+      "@babel/typescript"
+    ]
+  }
+}
