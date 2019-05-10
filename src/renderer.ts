@@ -1,90 +1,24 @@
 import ReactReconciler, { HostConfig } from 'react-reconciler';
 
-interface Container {
-  children: Instance[];
-  tag: 'CONTAINER';
-}
+import flushToTerminal from './terminal';
+import { appendChild, removeChild, insertBefore } from './tree';
 
-interface Instance {
-  type?: string;
-  props?: object;
-  children?: Instance[];
-  rootContainerInstance?: Container;
-  tag: 'INSTANCE' | 'TEXT';
-  text?: string;
-}
-
-const processNode = (instance: Container | Instance) => {
-  let theText: string | undefined;
-
-  if ((instance as Instance).text) {
-    theText = (instance as Instance).text;
-  }
-
-  if (theText) {
-    process.stdout.write(theText);
-  }
-
-  let theChildren: Instance[] | undefined = instance.children;
-
-  if (theChildren) {
-    for (const childNode of theChildren) {
-      processNode(childNode);
-    }
-  }
-};
-
-const flush = (container: Container) => {
-  processNode(container);
-};
-
-type Type = string;
-type Props = object;
-type HydratableInstance = Instance;
-type PublicInstance = Instance;
-type HostContext = object;
-type UpdatePayload = object;
-type ChildSet = undefined; // Unused
-type TimeoutHandle = any;
-type NoTimeout = -1;
+import {
+  Type,
+  Props,
+  Container,
+  Instance,
+  HydratableInstance,
+  PublicInstance,
+  HostContext,
+  UpdatePayload,
+  ChildSet,
+  TimeoutHandle,
+  NoTimeout,
+} from './types';
 
 const HOST_CONTEXT: HostContext = {};
 const UPDATE_SIGNAL = {};
-
-const appendChild = (parentInstance: Instance | Container, child: Instance) => {
-  //console.log('appendInitialChild', parentInstance, child);
-
-  if (parentInstance.children) {
-    const index = parentInstance.children.indexOf(child);
-    if (index !== -1) {
-      parentInstance.children.splice(index, 1);
-    }
-    parentInstance.children.push(child);
-  }
-};
-
-const insertBefore = (
-  parentInstance: Instance | Container,
-  child: Instance,
-  beforeChild: Instance
-) => {
-  if (parentInstance.children) {
-    const index = parentInstance.children.indexOf(child);
-    if (index !== -1) {
-      parentInstance.children.splice(index, 1);
-    }
-    const beforeIndex = parentInstance.children.indexOf(beforeChild);
-    parentInstance.children.splice(beforeIndex, 0, child);
-  }
-};
-
-const removeChild = (parentInstance: Instance | Container, child: Instance) => {
-  //console.log('removeChild');
-  if (parentInstance.children) {
-    const index = parentInstance.children.indexOf(child);
-    parentInstance.children.splice(index, 1);
-  }
-};
 
 const hostConfig: HostConfig<
   Type,
@@ -121,7 +55,7 @@ const hostConfig: HostConfig<
 
   resetAfterCommit(containerInfo) {
     //console.log('resetAfterCommit', containerInfo);
-    flush(containerInfo);
+    flushToTerminal(containerInfo);
   },
 
   createInstance(type, props, rootContainerInstance) {

@@ -7,8 +7,8 @@
     "build": "babel src --out-dir=build --extensions '.ts,.tsx'",
     "start": "npm run build && node ./build/examples/index.js",
     "check-types": "tsc --noEmit",
-    "lint": "eslint --ext ts,tsx,js,jsx src/ examples/",
-    "fixlint": "eslint --fix --ext ts,tsx,js,jsx src/ examples/",
+    "lint": "eslint --ext ts,tsx,js,jsx src/",
+    "fixlint": "eslint --fix --ext ts,tsx,js,jsx src/",
     "test": "npm run lint && npm run check-types"
   },
   "author": "",
