@@ -1,39 +1,21 @@
+import React from 'react';
 import ReactReconciler, { HostConfig } from 'react-reconciler';
+import {
+  unstable_scheduleCallback as schedulePassiveEffects,
+  unstable_cancelCallback as cancelPassiveEffects,
+} from 'scheduler';
 
 import flushToTerminal from './terminal';
 import { appendChild, removeChild, insertBefore } from './tree';
 
-import {
-  Type,
-  Props,
-  Container,
-  Instance,
-  HydratableInstance,
-  PublicInstance,
-  HostContext,
-  UpdatePayload,
-  ChildSet,
-  TimeoutHandle,
-  NoTimeout,
-} from './types';
+import { HostContext, ExtendedHostConfig } from './types';
 
 const HOST_CONTEXT: HostContext = {};
 const UPDATE_SIGNAL = {};
 
-const hostConfig: HostConfig<
-  Type,
-  Props,
-  Container,
-  Instance,
-  Instance,
-  HydratableInstance,
-  PublicInstance,
-  HostContext,
-  UpdatePayload,
-  ChildSet,
-  TimeoutHandle,
-  NoTimeout
-> = {
+const hostConfig: ExtendedHostConfig = {
+  schedulePassiveEffects,
+  cancelPassiveEffects,
   getRootHostContext() {
     //console.log('getRootHostContext', rootContainerInstance);
     return HOST_CONTEXT;
@@ -186,7 +168,25 @@ const hostConfig: HostConfig<
   noTimeout: -1,
 };
 
-const renderer = (tree: React.ReactNode) => {
+class App extends React.Component {
+  render() {
+    return this.props.children;
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
+  componentDidCatch(error: Error) {
+    console.log('componentDidCatch', error);
+  }
+}
+
+const renderer = (node: React.ReactNode) => {
   const reconciler = ReactReconciler(hostConfig);
 
   //console.log('--------create container----------');
@@ -201,6 +201,8 @@ const renderer = (tree: React.ReactNode) => {
   //console.log('--------create container----------');
 
   //console.log('--------upodate container----------');
+
+  const tree = <App>{node}</App>;
   reconciler.updateContainer(tree, container, null, () => {});
   //console.log('--------upodate container----------');
 };
