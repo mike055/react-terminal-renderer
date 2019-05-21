@@ -1,30 +1,6 @@
 import React from 'react';
 import renderer from '../';
 
-type TextProps = {
-  children: React.ReactNode;
-};
+import SimpleText from './SimpleText';
 
-const Text = ({ children }: TextProps) => {
-  return <span>{children}</span>;
-};
-
-const TextFromMoreNesting = () => {
-  return (
-    <React.Fragment>
-      <Text>More text please</Text>
-    </React.Fragment>
-  );
-};
-
-const App = () => {
-  return (
-    <React.Fragment>
-      <Text>Hello World</Text>
-      <Text>Test</Text>
-      <TextFromMoreNesting />
-    </React.Fragment>
-  );
-};
-
-renderer(<App />);
+renderer(<SimpleText />);
