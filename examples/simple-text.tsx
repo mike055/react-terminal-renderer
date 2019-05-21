@@ -1,12 +1,5 @@
 import React from 'react';
-
-type TextProps = {
-  children: React.ReactNode;
-};
-
-const Text = ({ children }: TextProps) => {
-  return <span>{children}</span>;
-};
+import renderer, { Text } from '../lib/index';
 
 const TextFromMoreNesting = () => {
   return (
@@ -26,4 +19,4 @@ const App = () => {
   );
 };
 
-export default App;
+renderer(<App />);
