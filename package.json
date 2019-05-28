@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "auto-bind": "^2.1.0",
     "react": "^16.8.6",
     "react-reconciler": "^0.20.4",
     "scheduler": "^0.13.2"

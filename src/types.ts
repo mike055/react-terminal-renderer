@@ -25,6 +25,7 @@ export type ChildSet = undefined; // Unused
 export type TimeoutHandle = any;
 export type NoTimeout = -1;
 
+/* eslint-disable @typescript-eslint/camelcase */
 export interface ExtendedHostConfig
   extends HostConfig<
     Type,
@@ -46,3 +47,4 @@ export interface ExtendedHostConfig
   ) => CallbackNode;
   cancelPassiveEffects: (callbackNode: CallbackNode) => void;
 }
+/* eslint-enable @typescript-eslint/camelcase */

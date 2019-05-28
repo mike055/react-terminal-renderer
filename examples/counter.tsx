@@ -18,4 +18,4 @@ const App = () => {
   );
 };
 
-renderer(<App />);
+renderer.render(<App />);
