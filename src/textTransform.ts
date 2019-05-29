@@ -12,6 +12,10 @@ const buildChalkTransform = (styles: TextStyles) => {
     chalkStyles = chalkStyles.keyword(styles.color);
   }
 
+  if (styles.backgroundColor) {
+    chalkStyles = chalkStyles.bgKeyword(styles.backgroundColor);
+  }
+
   return chalkStyles;
 };
 

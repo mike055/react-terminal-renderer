@@ -20,6 +20,7 @@ export type Instance = {
 export type TextStyles = {
   bold?: boolean;
   color?: COLOR;
+  backgroundColor?: COLOR;
 };
 
 export type Type = string;
