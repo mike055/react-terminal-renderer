@@ -9,15 +9,20 @@ type InputProps = {
   onChange: OnChange;
   onSubmit: OnSubmit;
   originalValue: string;
+  focus: boolean;
 };
 
 type InternalInputProps = InputProps & InputContext;
 
 class InternalInput extends React.Component<InternalInputProps> {
   handleInput = (data: any) => {
-    const { onChange, onSubmit, originalValue } = this.props;
+    const { onChange, onSubmit, originalValue, focus } = this.props;
 
     const s = String(data);
+
+    if (!focus) {
+      return;
+    }
 
     if (s == CTRL_C) {
       return;
@@ -58,7 +63,7 @@ class InternalInput extends React.Component<InternalInputProps> {
   }
 }
 
-const Input = ({ onChange, onSubmit, originalValue }: InputProps) => {
+const Input = ({ onChange, onSubmit, originalValue, focus }: InputProps) => {
   return (
     <InputContext.Consumer>
       {({ inputStream, setRawMode }) => (
@@ -66,6 +71,7 @@ const Input = ({ onChange, onSubmit, originalValue }: InputProps) => {
           onChange={onChange}
           onSubmit={onSubmit}
           originalValue={originalValue}
+          focus={focus}
           inputStream={inputStream as NodeJS.ReadStream}
           setRawMode={setRawMode}
         />

@@ -8,6 +8,7 @@ import Unicorns from './unicorns';
 const App = () => {
   const [changedVal, setChangedVal] = useState('');
   const [submittedVal, setSubmittedVal] = useState('');
+  const [focusInput, setFocusInput] = useState(true);
 
   return (
     <React.Fragment>
@@ -20,7 +21,11 @@ const App = () => {
       <Input
         originalValue={changedVal}
         onChange={setChangedVal}
-        onSubmit={setSubmittedVal}
+        onSubmit={s => {
+          setSubmittedVal(s);
+          setFocusInput(false);
+        }}
+        focus={focusInput}
       />
     </React.Fragment>
   );

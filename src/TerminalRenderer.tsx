@@ -19,7 +19,7 @@ export default class TerminalRenderer {
     this.options = options;
 
     const logger = logUpdate.create(options.output, {
-      showCursor: true,
+      showCursor: false,
     });
 
     const terminalOutputter = createTerminalOutputter(logger);
