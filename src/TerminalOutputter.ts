@@ -41,7 +41,7 @@ export class TerminalOutputter {
       }
 
       if (theText) {
-        combinedResult += textTransform(theText, childNode.style);
+        combinedResult += textTransform(theText, childNode.styles);
       }
     }
 
@@ -56,7 +56,7 @@ export class TerminalOutputter {
     }
 
     if (theText) {
-      output.push(textTransform(theText, (instance as Instance).style));
+      output.push(textTransform(theText, (instance as Instance).styles));
       return;
     }
 

@@ -1,12 +1,13 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import { TextStyles } from '../types';
 
 type TextProps = {
   children: React.ReactNode;
-  style?: CSSProperties;
+  styles?: TextStyles;
 };
 
-export const Text = ({ children, style }: TextProps) => {
-  return <span style={style}>{children}</span>;
+export const Text = ({ children, styles }: TextProps) => {
+  return <span data-styles={styles}>{children}</span>;
 };
 
 export default Text;

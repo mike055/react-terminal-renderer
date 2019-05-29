@@ -30,8 +30,8 @@ const applyInstanceAttributes = (
         }
       }
     }
-    if (key === 'style') {
-      instance.style = value;
+    if (key === 'data-styles') {
+      instance.styles = value;
     }
   }
 };

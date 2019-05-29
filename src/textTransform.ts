@@ -1,19 +1,19 @@
 import chalk from 'chalk';
-import { CSSProperties } from 'react';
+import { TextStyles } from './types';
 
-const buildChalkTransform = (style: CSSProperties) => {
+const buildChalkTransform = (styles: TextStyles) => {
   let chalkStyles = chalk;
 
-  if (style.fontWeight && style.fontWeight === 'bold') {
+  if (styles.bold) {
     chalkStyles = chalkStyles.bold;
   }
 
   return chalkStyles;
 };
 
-const textTransform = (text: string, style?: CSSProperties) => {
-  if (style) {
-    const chalkStyles = buildChalkTransform(style);
+const textTransform = (text: string, styles?: TextStyles) => {
+  if (styles) {
+    const chalkStyles = buildChalkTransform(styles);
     return chalkStyles(text);
   }
   return text;

@@ -25,7 +25,7 @@ const App = () => {
       <Text>{`Submitted value: ${submittedVal}`}</Text>
       <Text>----------------</Text>
       <Row>
-        <Text style={{ fontWeight: 'bold' }}>Enter some text:</Text>
+        <Text styles={{ bold: true }}>Enter some text:</Text>
         <Input
           value={changedVal}
           onChange={setChangedVal}
