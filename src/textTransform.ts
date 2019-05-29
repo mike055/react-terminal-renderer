@@ -8,6 +8,10 @@ const buildChalkTransform = (styles: TextStyles) => {
     chalkStyles = chalkStyles.bold;
   }
 
+  if (styles.color) {
+    chalkStyles = chalkStyles.keyword(styles.color);
+  }
+
   return chalkStyles;
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import renderer, { Text, Input, Row } from '../lib/index';
+import renderer, { Text, Input, Row, COLOR } from '../lib/index';
 
 import SimpleText from './simple-text';
 import Counter from './counter';
@@ -13,8 +13,8 @@ const App = () => {
   return (
     <React.Fragment>
       <Row>
-        <Text>Squash</Text>
-        <Text>All</Text>
+        <Text styles={{ color: COLOR.GREEN }}>Squash</Text>
+        <Text styles={{ color: COLOR.RED }}>All</Text>
         The
         <Text>Text</Text>
       </Row>

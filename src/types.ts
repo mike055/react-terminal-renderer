@@ -1,6 +1,8 @@
 import { HostConfig } from 'react-reconciler';
 import { FrameCallbackType, CallbackNode } from 'scheduler';
 
+import { COLOR } from './colors';
+
 export type Container = {
   children: Instance[];
   tag: 'CONTAINER';
@@ -16,7 +18,8 @@ export type Instance = {
 };
 
 export type TextStyles = {
-  bold: boolean;
+  bold?: boolean;
+  color?: COLOR;
 };
 
 export type Type = string;
