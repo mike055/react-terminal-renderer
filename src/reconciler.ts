@@ -130,12 +130,8 @@ const createHostConfig = (terminalOutputter: TerminalOutputter) => {
       //console.log('commitMount', domElement, type, newProps, internalInstanceHandle);
     },
 
-    commitUpdate(domElement, type, oldProps, newProps) {
-      //console.log('commitUpdate', domElement, type, oldProps, newProps, internalInstanceHandle);
-
+    commitUpdate(instance, updatePayload, type, oldProps, newProps) {
       const theType = String(type);
-
-      const instance: Instance = createInstance(theType);
 
       for (const [key, value] of Object.entries(newProps)) {
         if (key === 'children') {
@@ -153,16 +149,23 @@ const createHostConfig = (terminalOutputter: TerminalOutputter) => {
           }
         }
       }
-
-      return instance;
     },
 
-    resetTextContent() {
-      //console.log('resetTextContent');
+    resetTextContent(textInstance) {
+      textInstance.text = '';
+
+      if (textInstance.text) {
+        textInstance.text = '';
+      }
+
+      if (textInstance.children && textInstance.children.length > 0) {
+        for (const childNode of textInstance.children) {
+          removeChild(textInstance, childNode);
+        }
+      }
     },
 
     commitTextUpdate(textInstance, oldText, newText) {
-      //console.log('commitTextUpdate');
       textInstance.text = newText;
     },
 

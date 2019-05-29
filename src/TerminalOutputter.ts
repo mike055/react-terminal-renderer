@@ -73,13 +73,12 @@ export class TerminalOutputter {
   }
 
   public output(container: Container) {
-    console.log(JSON.stringify(container, null, 2));
     const output: string[] = [];
     this.processNode(container, output);
 
     const loggedOutput = output.map(line => line.trimRight()).join('\n');
-    //this.logger(loggedOutput);
-    process.stdout.write(loggedOutput);
+    this.logger(loggedOutput);
+    //process.stdout.write(loggedOutput);
   }
 }
 
