@@ -1,5 +1,14 @@
 import { Instance, Container } from './types';
 
+export const createInstance = (type: string) => {
+  const instance: Instance = {
+    tag: type.toUpperCase(),
+    children: [],
+  };
+
+  return instance;
+};
+
 export const appendChild = (
   parentInstance: Instance | Container,
   child: Instance

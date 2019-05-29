@@ -4,8 +4,8 @@ import {
 } from 'scheduler';
 
 import { TerminalOutputter } from './TerminalOutputter';
-import { appendChild, removeChild, insertBefore } from './tree';
-import { HostContext, ExtendedHostConfig } from './types';
+import { appendChild, removeChild, insertBefore, createInstance } from './tree';
+import { HostContext, ExtendedHostConfig, Instance } from './types';
 
 const HOST_CONTEXT: HostContext = {};
 const UPDATE_SIGNAL = {};
@@ -38,20 +38,31 @@ const createHostConfig = (terminalOutputter: TerminalOutputter) => {
       terminalOutputter.output(containerInfo);
     },
 
-    createInstance(type, props, rootContainerInstance) {
-      // //console.log('createInstance', type,
-      // props,
-      // rootContainerInstance,
-      // hostContext,
-      // internalInstanceHandle);
+    createInstance(type, props) {
+      // console.log('createInstance', type,
+      //   props,
+      //   rootContainerInstance);
 
-      return {
-        type,
-        props,
-        children: [],
-        rootContainerInstance,
-        tag: 'INSTANCE',
-      };
+      const instance: Instance = createInstance(type);
+
+      for (const [key, value] of Object.entries(props)) {
+        if (key === 'children') {
+          if (typeof value === 'string' || typeof value === 'number') {
+            if (type === 'div') {
+              // Text node must be wrapped in another node, so that text can be aligned within container
+              const textElement = createInstance('div');
+              textElement.text = String(value);
+              appendChild(instance, textElement);
+            }
+
+            if (type === 'span') {
+              instance.text = String(value);
+            }
+          }
+        }
+      }
+
+      return instance;
     },
 
     appendInitialChild(parentInstance, child) {
@@ -119,8 +130,31 @@ const createHostConfig = (terminalOutputter: TerminalOutputter) => {
       //console.log('commitMount', domElement, type, newProps, internalInstanceHandle);
     },
 
-    commitUpdate() {
+    commitUpdate(domElement, type, oldProps, newProps) {
       //console.log('commitUpdate', domElement, type, oldProps, newProps, internalInstanceHandle);
+
+      const theType = String(type);
+
+      const instance: Instance = createInstance(theType);
+
+      for (const [key, value] of Object.entries(newProps)) {
+        if (key === 'children') {
+          if (typeof value === 'string' || typeof value === 'number') {
+            if (theType === 'div') {
+              // Text node must be wrapped in another node, so that text can be aligned within container
+              const textElement = createInstance('div');
+              textElement.text = String(value);
+              appendChild(instance, textElement);
+            }
+
+            if (theType === 'span') {
+              instance.text = String(value);
+            }
+          }
+        }
+      }
+
+      return instance;
     },
 
     resetTextContent() {

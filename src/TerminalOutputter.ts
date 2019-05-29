@@ -10,6 +10,42 @@ export class TerminalOutputter {
     this.logger = logger;
   }
 
+  private allChildrenText(children: Instance[]) {
+    let allChildrenAreText = true;
+
+    for (const childNode of children) {
+      let theText: string | undefined;
+
+      if ((childNode as Instance).text) {
+        theText = (childNode as Instance).text;
+      }
+
+      if (!theText) {
+        return false;
+      }
+    }
+
+    return allChildrenAreText;
+  }
+
+  private combineChildrenAsText(children: Instance[]) {
+    let combinedResult = '';
+
+    for (const childNode of children) {
+      let theText: string | undefined;
+
+      if ((childNode as Instance).text) {
+        theText = (childNode as Instance).text;
+      }
+
+      if (theText) {
+        combinedResult += theText;
+      }
+    }
+
+    return combinedResult;
+  }
+
   private processNode(instance: Container | Instance, output: string[]) {
     let theText: string | undefined;
 
@@ -19,11 +55,17 @@ export class TerminalOutputter {
 
     if (theText) {
       output.push(theText);
+      return;
     }
 
     let theChildren: Instance[] | undefined = instance.children;
 
     if (theChildren) {
+      if (this.allChildrenText(theChildren)) {
+        output.push(this.combineChildrenAsText(theChildren));
+        return;
+      }
+
       for (const childNode of theChildren) {
         this.processNode(childNode, output);
       }
@@ -31,11 +73,13 @@ export class TerminalOutputter {
   }
 
   public output(container: Container) {
+    console.log(JSON.stringify(container, null, 2));
     const output: string[] = [];
     this.processNode(container, output);
 
     const loggedOutput = output.map(line => line.trimRight()).join('\n');
-    this.logger(loggedOutput);
+    //this.logger(loggedOutput);
+    process.stdout.write(loggedOutput);
   }
 }
 

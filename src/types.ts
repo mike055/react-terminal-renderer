@@ -7,11 +7,10 @@ export type Container = {
 };
 
 export type Instance = {
-  type?: string;
   props?: object;
   children?: Instance[];
   rootContainerInstance?: Container;
-  tag: 'INSTANCE' | 'TEXT';
+  tag: string;
   text?: string;
 };
 
