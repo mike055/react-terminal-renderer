@@ -1,10 +1,6 @@
 # React Terminal Renderer
 
-## Examples
-
-- Simple text rendering: `src/examples/index.tsx`
-
-## Run it
+## Run an example
 
 ```
 npm i

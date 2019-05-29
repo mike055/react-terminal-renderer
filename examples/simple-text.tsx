@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer, { Text } from '../lib/index';
+import { Text } from '../lib/index';
 
 const TextFromMoreNesting = () => {
   return (
@@ -9,14 +9,14 @@ const TextFromMoreNesting = () => {
   );
 };
 
-const App = () => {
+const SimpleText = () => {
   return (
     <React.Fragment>
       <Text>Hello World</Text>
-      <Text>Test</Text>
+      <Text>I am some cool text</Text>
       <TextFromMoreNesting />
     </React.Fragment>
   );
 };
 
-renderer.render(<App />);
+export default SimpleText;

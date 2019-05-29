@@ -9,7 +9,7 @@
     "build": "tsc --declaration --jsx react",
     "prebuild": "npm run clean",
     "clean": "rm -rf clean",
-    "start": "npm run build && npm run build:demo && echo \"Please run with: node demo/..\"",
+    "start": "npm run build && npm run build:demo && node demo/index.js",
     "check-types": "tsc --noEmit --jsx react",
     "lint": "eslint --ext ts,tsx,js,jsx src/",
     "fixlint": "eslint --fix --ext ts,tsx,js,jsx src/",
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "auto-bind": "^2.1.0",
+    "log-update": "^3.2.0",
     "react": "^16.8.6",
     "react-reconciler": "^0.20.4",
     "scheduler": "^0.13.2"

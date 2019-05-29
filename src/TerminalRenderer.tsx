@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactReconciler, { Reconciler } from 'react-reconciler';
 import autoBind from 'auto-bind';
+import logUpdate from 'log-update';
 
 import App from './components/App';
 import createTerminalOutputter from './TerminalOutputter';
@@ -14,7 +15,11 @@ export default class TerminalRenderer {
   constructor() {
     autoBind(this);
 
-    const terminalOutputter = createTerminalOutputter();
+    const logger = logUpdate.create(process.stdout, {
+      showCursor: true,
+    });
+
+    const terminalOutputter = createTerminalOutputter(logger);
     const reconcilerConfig = createReconcilerConfig(terminalOutputter);
     this.reconciler = ReactReconciler(reconcilerConfig);
 

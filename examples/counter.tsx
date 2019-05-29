@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import renderer, { Text } from '../lib/index';
+import { Text } from '../lib/index';
 
-const App = () => {
+const Counter = () => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const id = setInterval(() => {
@@ -18,4 +18,4 @@ const App = () => {
   );
 };
 
-renderer.render(<App />);
+export default Counter;
