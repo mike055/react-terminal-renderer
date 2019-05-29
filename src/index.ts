@@ -1,4 +1,4 @@
-import createTerminalRendered from './instance';
-export default createTerminalRendered();
+import createTerminalRenderer from './instance';
+export default createTerminalRenderer();
 
 export { default as Text } from './components/Text';
