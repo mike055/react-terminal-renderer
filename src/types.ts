@@ -48,3 +48,8 @@ export interface ExtendedHostConfig
   cancelPassiveEffects: (callbackNode: CallbackNode) => void;
 }
 /* eslint-enable @typescript-eslint/camelcase */
+
+export type Options = {
+  input: NodeJS.ReadStream;
+  output: NodeJS.WriteStream;
+};

@@ -1,32 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import renderer, { Text } from '../lib/index';
+import React, { useState } from 'react';
+import renderer, { Text, Input } from '../lib/index';
 
 import SimpleText from './simple-text';
 import Counter from './counter';
 import Unicorns from './unicorns';
 
 const App = () => {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCount(c => c + 1);
-    }, 1000);
-
-    return () => clearInterval(id);
-  }, []);
-
-  const frame = '-';
-  const complexString = `
-  ♥♥
-${frame} unicorns ${frame}
-  ♥♥
-`;
+  const [changedVal, setChangedVal] = useState('');
+  const [submittedVal, setSubmittedVal] = useState('');
 
   return (
     <React.Fragment>
       <SimpleText />
       <Counter />
       <Unicorns />
+      <Text>----------------</Text>
+      <Text>{`Submitted value: ${submittedVal}`}</Text>
+      <Text>----------------</Text>
+      <Input
+        originalValue={changedVal}
+        onChange={setChangedVal}
+        onSubmit={setSubmittedVal}
+      />
     </React.Fragment>
   );
 };

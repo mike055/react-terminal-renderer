@@ -6,16 +6,19 @@ import logUpdate from 'log-update';
 import App from './components/App';
 import createTerminalOutputter from './TerminalOutputter';
 import createReconcilerConfig from './reconciler';
-import { PublicInstance, Instance, Container } from './types';
+import { PublicInstance, Instance, Container, Options } from './types';
 
 export default class TerminalRenderer {
   private reconciler: Reconciler<Instance, Instance, Container, PublicInstance>;
   private container: ReactReconciler.FiberRoot;
+  private options: Options;
 
-  constructor() {
+  constructor(options: Options) {
     autoBind(this);
 
-    const logger = logUpdate.create(process.stdout, {
+    this.options = options;
+
+    const logger = logUpdate.create(options.output, {
       showCursor: true,
     });
 
@@ -34,7 +37,7 @@ export default class TerminalRenderer {
   }
 
   public render(children: React.ReactNode) {
-    const app = <App>{children}</App>;
+    const app = <App options={this.options}>{children}</App>;
     this.reconciler.updateContainer(app, this.container, null, () => {});
   }
 }
