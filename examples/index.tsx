@@ -27,7 +27,7 @@ const App = () => {
       <Row>
         <Text>Enter some text:</Text>
         <Input
-          originalValue={changedVal}
+          value={changedVal}
           onChange={setChangedVal}
           onSubmit={s => {
             setSubmittedVal(s);
