@@ -10,6 +10,32 @@ import { HostContext, ExtendedHostConfig, Instance } from './types';
 const HOST_CONTEXT: HostContext = {};
 const UPDATE_SIGNAL = {};
 
+const applyInstanceAttributes = (
+  instance: Instance,
+  type: string,
+  props: object
+) => {
+  for (const [key, value] of Object.entries(props)) {
+    if (key === 'children') {
+      if (typeof value === 'string' || typeof value === 'number') {
+        if (type === 'div') {
+          // Text node must be wrapped in another node, so that text can be aligned within container
+          const textElement = createInstance('div');
+          textElement.text = String(value);
+          appendChild(instance, textElement);
+        }
+
+        if (type === 'span') {
+          instance.text = String(value);
+        }
+      }
+    }
+    if (key === 'style') {
+      instance.style = value;
+    }
+  }
+};
+
 const createHostConfig = (terminalOutputter: TerminalOutputter) => {
   const hostConfig: ExtendedHostConfig = {
     schedulePassiveEffects,
@@ -44,24 +70,7 @@ const createHostConfig = (terminalOutputter: TerminalOutputter) => {
       //   rootContainerInstance);
 
       const instance: Instance = createInstance(type);
-
-      for (const [key, value] of Object.entries(props)) {
-        if (key === 'children') {
-          if (typeof value === 'string' || typeof value === 'number') {
-            if (type === 'div') {
-              // Text node must be wrapped in another node, so that text can be aligned within container
-              const textElement = createInstance('div');
-              textElement.text = String(value);
-              appendChild(instance, textElement);
-            }
-
-            if (type === 'span') {
-              instance.text = String(value);
-            }
-          }
-        }
-      }
-
+      applyInstanceAttributes(instance, type, props);
       return instance;
     },
 
@@ -131,24 +140,7 @@ const createHostConfig = (terminalOutputter: TerminalOutputter) => {
     },
 
     commitUpdate(instance, updatePayload, type, oldProps, newProps) {
-      const theType = String(type);
-
-      for (const [key, value] of Object.entries(newProps)) {
-        if (key === 'children') {
-          if (typeof value === 'string' || typeof value === 'number') {
-            if (theType === 'div') {
-              // Text node must be wrapped in another node, so that text can be aligned within container
-              const textElement = createInstance('div');
-              textElement.text = String(value);
-              appendChild(instance, textElement);
-            }
-
-            if (theType === 'span') {
-              instance.text = String(value);
-            }
-          }
-        }
-      }
+      applyInstanceAttributes(instance, type, newProps);
     },
 
     resetTextContent(textInstance) {

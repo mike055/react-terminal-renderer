@@ -1,6 +1,8 @@
 import { Instance, Container } from './types';
 import { LogUpdate } from 'log-update';
-import autoBind = require('auto-bind');
+import autoBind from 'auto-bind';
+
+import textTransform from './textTransform';
 
 export class TerminalOutputter {
   private logger: LogUpdate;
@@ -39,7 +41,7 @@ export class TerminalOutputter {
       }
 
       if (theText) {
-        combinedResult += theText;
+        combinedResult += textTransform(theText, childNode.style);
       }
     }
 
@@ -54,7 +56,7 @@ export class TerminalOutputter {
     }
 
     if (theText) {
-      output.push(theText);
+      output.push(textTransform(theText, (instance as Instance).style));
       return;
     }
 
