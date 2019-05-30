@@ -80,6 +80,7 @@ export class TerminalOutputter {
 
     const loggedOutput = output.map(line => line.trimRight()).join('\n');
     this.logger(loggedOutput);
+    //console.log(JSON.stringify(container, null, 2));
     //process.stdout.write(loggedOutput);
   }
 }

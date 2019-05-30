@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import renderer, { Text, Input, Row, COLOR } from '../lib/index';
+import { Text, Input, Row, COLOR } from '../../lib/index';
 
 import SimpleText from './simple-text';
 import Counter from './counter';

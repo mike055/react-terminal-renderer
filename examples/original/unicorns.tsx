@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from '../lib/index';
+import { Text } from '../../lib/index';
 
 const frames = ['-', '\\', '|', '/'];
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import renderer from '../lib/index';
 
-import Original from './original';
+//import Original from './original';
+import Jest from './jest';
 
 const App = () => {
   return (
     <React.Fragment>
-      <Original />
+      <Jest />
     </React.Fragment>
   );
 };
