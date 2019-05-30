@@ -23,6 +23,7 @@ export type TextStyles = {
   backgroundColor?: COLOR;
   paddingLeft?: number;
   paddingRight?: number;
+  width?: number;
 };
 
 export type Type = string;

@@ -19,6 +19,14 @@ const buildChalkTransform = (styles: TextStyles) => {
   return chalkStyles;
 };
 
+const ensureWidth = (text: string, width?: number) => {
+  if (width) {
+    return text.padEnd(width);
+  }
+
+  return text;
+};
+
 const addPaddingToText = (text: string, styles: TextStyles) => {
   let paddingLeft = '';
   let paddingRight = '';
@@ -31,7 +39,7 @@ const addPaddingToText = (text: string, styles: TextStyles) => {
     paddingRight = ' '.repeat(styles.paddingRight);
   }
 
-  return `${paddingLeft}${text}${paddingRight}`;
+  return ensureWidth(`${paddingLeft}${text}${paddingRight}`, styles.width);
 };
 
 const textTransform = (text: string, styles?: TextStyles) => {

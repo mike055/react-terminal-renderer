@@ -42,7 +42,7 @@ const SummaryBar = ({ completedTests, timeTaken }: SummaryBarProps) => {
   return (
     <React.Fragment>
       <Row>
-        <Text styles={{ bold: true }}>Tests: </Text>
+        <Text styles={{ width: 10, bold: true }}>Tests:</Text>
         {failedTests > 0 && (
           <React.Fragment>
             <Text styles={{ color: COLOR.RED }}>{failedTests}</Text>
@@ -67,7 +67,7 @@ const SummaryBar = ({ completedTests, timeTaken }: SummaryBarProps) => {
         <Text styles={{ paddingLeft: 1, paddingRight: 1 }}>total</Text>
       </Row>
       <Row>
-        <Text styles={{ bold: true, paddingRight: 1 }}>Time:</Text>
+        <Text styles={{ width: 10, bold: true }}>Time:</Text>
         <Text>{timeTaken}</Text>
       </Row>
     </React.Fragment>
