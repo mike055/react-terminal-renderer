@@ -21,6 +21,8 @@ export type TextStyles = {
   bold?: boolean;
   color?: COLOR;
   backgroundColor?: COLOR;
+  paddingLeft?: number;
+  paddingRight?: number;
 };
 
 export type Type = string;

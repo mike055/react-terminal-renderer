@@ -11,6 +11,8 @@ const getStatusStyle = (status: string) => {
   const baseStyles = {
     color: COLOR.BLACK,
     bold: true,
+    paddingLeft: 2,
+    paddingRight: 2,
   };
 
   if (status === 'pass') {
@@ -42,8 +44,7 @@ const TestResult = ({ test }: TestResultProps) => {
   return (
     <Row>
       <Text styles={statusStyle}>{test.status.toUpperCase()}</Text>
-      <Text> </Text>
-      <Text>{testPath}</Text>
+      <Text styles={{ paddingLeft: 1 }}>{testPath}</Text>
       <Text styles={{ bold: true }}>{testName}</Text>
     </Row>
   );
