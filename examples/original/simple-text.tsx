@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../lib/index';
+import { Text } from '../../lib/index';
 
 const TextFromMoreNesting = () => {
   return (
